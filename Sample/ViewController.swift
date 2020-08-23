@@ -39,7 +39,7 @@ class ViewController: UIViewController {
                 print(currentTime-startTime)
                 print(c)
                 
-                //self.fireURL(url: self.check!.url)
+                self.fireURL(url: self.check!.url)
                 
                 APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
                              DispatchQueue.main.async {

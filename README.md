@@ -11,7 +11,7 @@
 - 4Auth Node Server url should be set in `Build Settings -> User-Defined : MY_APP_SERVER_URL`
 - App to Server communications is located in `APIManager.swift`
 - UI logic is located in `ViewController.swift`
-- `check_url` handling is using Boku legacy Objective-C library `NetworkingLogic` via the `Sample-Bridging-Header.h` 
+- `check_url` handling (ViewController -> fireURL method) is using Boku legacy Objective-C library `NetworkingLogic` via the `Sample-Bridging-Header.h` 
 
 ## TODO
 
