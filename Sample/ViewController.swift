@@ -39,7 +39,8 @@ class ViewController: UIViewController {
                 print(currentTime-startTime)
                 print(c)
                 
-                self.fireURL(url: self.check!.url)
+                self.doRedirect(url: self.check!.url)
+                //self.fireURL(url: self.check!.url)
                 
                 APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
                              DispatchQueue.main.async {
@@ -55,6 +56,11 @@ class ViewController: UIViewController {
                 
             }
         }
+    }
+    
+    func doRedirect(url: String) {
+        let rm: RedirectManager  = RedirectManager()
+        rm.doRedirect(string: url)
     }
     
     func fireURL(url:String) -> String {

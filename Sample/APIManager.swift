@@ -12,14 +12,21 @@ final class APIManager {
         
     private let serverUrl = Bundle.main.object(forInfoDictionaryKey: "appServerUrl") as! String
     
-    func getCheck(withPhoneNumber phone:String, completionHandler: @escaping (Check) -> Void) {        
+    func getCheck(withPhoneNumber phone:String, completionHandler: @escaping (Check) -> Void) {
+        let config = URLSessionConfiguration.default
+        config.waitsForConnectivity = true
+        config.timeoutIntervalForResource = 300
+        config.allowsExpensiveNetworkAccess = true
+        config.allowsCellularAccess = true
+        let session = URLSession(configuration: config)
+
         let endPoint: String = serverUrl + "/check?phone_number=\(phone)"
         
         print("endPoint[" + endPoint + "]")
 
         if let url = URL(string: endPoint) {
             print("url " + url.description)
-            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            let task = session.dataTask(with: url) { (data, response, error) in
                 if let error = error {
                   print("Error returning phone \(phone): \(error)")
                   return
@@ -42,13 +49,17 @@ final class APIManager {
     }
     
     func getCheckStatus(withCheckId id:String, completionHandler: @escaping (CheckStatus) -> Void) {
+        let config = URLSessionConfiguration.default
+        config.waitsForConnectivity = true
+        config.timeoutIntervalForResource = 300
+        let session = URLSession(configuration: config)
         let endPoint: String = serverUrl + "/check_status?check_id=\(id)"
         
         print("endPoint[" + endPoint + "]")
 
         if let url = URL(string: endPoint) {
               print(url)
-              let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+              let task = session.dataTask(with: url) { (data, response, error) in
                 if let error = error {
                   print("Error returning id \(id): \(error)")
                   return
