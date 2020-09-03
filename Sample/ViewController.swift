@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Network
+
 
 class ViewController: UIViewController {
     
@@ -25,61 +27,49 @@ class ViewController: UIViewController {
     
     @IBAction func enterField(_ sender: UITextField) {
         print("enter "+sender.text!)
-        
+    
         self.label.text =  ""
         self.result.text =  ""
-        activityIndicator.startAnimating()
+        self.activityIndicator.startAnimating()
         let startTime = NSDate().timeIntervalSince1970 * 1000
 
-        APIManager().getCheck(withPhoneNumber: sender.text!) { (c) in
+
+        // Step 1: Send phone number to Server
+        APIManager().postCheck(withPhoneNumber: sender.text!) { (c) in
              DispatchQueue.main.async {
                 self.check = c
                 self.label.text =  c.url
                 let currentTime = NSDate().timeIntervalSince1970 * 1000
-                print(currentTime-startTime)
-                print(c)
-                
-                self.doRedirect(url: self.check!.url)
-                //self.fireURL(url: self.check!.url)
-                
-                APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
-                             DispatchQueue.main.async {
-                                self.checkStatus = s
-                                let currentTime = NSDate().timeIntervalSince1970 * 1000
-                                print(currentTime-startTime)
-                                print(s)
-                                self.label.text =  ""
-                                self.result.text =  s.match.description
-                                self.activityIndicator.stopAnimating()
-                            }
+                print("time: \(currentTime-startTime)")
+                print("server check \(c)")
+                // Step 2: Open check_url over cellular
+                self.doRedirect(url: self.check!.url) { _ in ()
+                    DispatchQueue.main.asyncAfter(deadline:.now() + 3) {
+                        print("-------------- asyncAfter-------------------")
+                        // Step 3: Get Result from Server
+                        APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
+                            print("-------------- redirect result-------------------")
+                                    DispatchQueue.main.async {
+                                        self.checkStatus = s
+                                        let currentTime = NSDate().timeIntervalSince1970 * 1000
+                                        print("time: \(currentTime-startTime)")
+                                        print("server result \(s)")
+                                        self.label.text =  ""
+                                        self.result.text =  s.match.description
+                                        self.activityIndicator.stopAnimating()
+                                    }
+                                }
                         }
-                
-            }
+                    }
+                }
         }
     }
     
-    func doRedirect(url: String) {
+    func doRedirect(url: String , completion: (Bool) -> ()) {
         let rm: RedirectManager  = RedirectManager()
-        rm.doRedirect(string: url)
+        rm.doRedirect(link: url)
+        return completion(true)
     }
     
-    func fireURL(url:String) -> String {
-        var response = "ERROR: Unknown HTTP Response"
-        print(url)
-        response = HTTPRequester.performGetRequest(URL(string: url))
-        
-        if response.range(of:"REDIRECT:") != nil {
-            // Get redirect link
-            let redirectRange = response.index(response.startIndex, offsetBy: 9)...
-            let redirectLink = String(response[redirectRange])
-            // Make recursive call
-            response = fireURL(url: redirectLink)
-        } else if response.range(of:"ERROR: Done") != nil {
-            return "ERROR: Unknown HTTP Response"
-        }
-        return response
-    }
-    
-
 }
 

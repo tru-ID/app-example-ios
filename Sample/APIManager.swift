@@ -8,44 +8,54 @@
 
 import Foundation
 
+//
+// Communication between app and sample backend node server
+//
 final class APIManager {
         
     private let serverUrl = Bundle.main.object(forInfoDictionaryKey: "appServerUrl") as! String
     
-    func getCheck(withPhoneNumber phone:String, completionHandler: @escaping (Check) -> Void) {
-        let config = URLSessionConfiguration.default
+    func postCheck(withPhoneNumber phone:String, completionHandler: @escaping (Check) -> Void) {
+        // creating paylod
+        let json: [String: Any] = ["phone_number": phone]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // create URL session
+        let config = URLSessionConfiguration.ephemeral
         config.waitsForConnectivity = true
         config.timeoutIntervalForResource = 300
         config.allowsExpensiveNetworkAccess = true
         config.allowsCellularAccess = true
         let session = URLSession(configuration: config)
 
-        let endPoint: String = serverUrl + "/check?phone_number=\(phone)"
-        
-        print("endPoint[" + endPoint + "]")
+        let endPoint: String = serverUrl + "/check"
+        print("postCheck: \(endPoint)")
 
-        if let url = URL(string: endPoint) {
-            print("url " + url.description)
-            let task = session.dataTask(with: url) { (data, response, error) in
-                if let error = error {
-                  print("Error returning phone \(phone): \(error)")
-                  return
-                }
-                
-                guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                  print("Unexpected response status code: \(response)")
-                  return
-                }
-                if let data = data,
-                    let check = try? JSONDecoder().decode(Check.self, from: data) {
-                    completionHandler(check)
-                }
+        let url = URL(string: endPoint)!
+        // create Request
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        print("request " + request.description)
+        // send the request
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+              print("Error returning phone \(phone): \(error)")
+              return
             }
-            task.resume()
-        } else {
-            print("error")
+            
+            guard let httpResponse = response as? HTTPURLResponse,
+              (200...299).contains(httpResponse.statusCode) else {
+              print("Unexpected response status code: \(response)")
+              return
+            }
+            if let data = data,
+                let check = try? JSONDecoder().decode(Check.self, from: data) {
+                completionHandler(check)
+            }
         }
+        task.resume()
+
     }
     
     func getCheckStatus(withCheckId id:String, completionHandler: @escaping (CheckStatus) -> Void) {
@@ -55,7 +65,7 @@ final class APIManager {
         let session = URLSession(configuration: config)
         let endPoint: String = serverUrl + "/check_status?check_id=\(id)"
         
-        print("endPoint[" + endPoint + "]")
+        print("getCheckStatus: \(endPoint)")
 
         if let url = URL(string: endPoint) {
               print(url)

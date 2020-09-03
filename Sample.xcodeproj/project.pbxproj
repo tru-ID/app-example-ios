@@ -14,9 +14,6 @@
 		0752B46524F0FAF200E9D2F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0752B46324F0FAF200E9D2F6 /* Main.storyboard */; };
 		0752B46724F0FAF300E9D2F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0752B46624F0FAF300E9D2F6 /* Assets.xcassets */; };
 		0752B46A24F0FAF300E9D2F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0752B46824F0FAF300E9D2F6 /* LaunchScreen.storyboard */; };
-		0752B48524F12A0200E9D2F6 /* HTTPRequester.m in Sources */ = {isa = PBXBuildFile; fileRef = 0752B48024F12A0200E9D2F6 /* HTTPRequester.m */; };
-		0752B48624F12A0200E9D2F6 /* SocketAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = 0752B48324F12A0200E9D2F6 /* SocketAddress.m */; };
-		0752B48724F12A0200E9D2F6 /* sslfuncs.c in Sources */ = {isa = PBXBuildFile; fileRef = 0752B48424F12A0200E9D2F6 /* sslfuncs.c */; };
 		0752B48B24F1648D00E9D2F6 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752B48A24F1648D00E9D2F6 /* APIManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,13 +27,6 @@
 		0752B46624F0FAF300E9D2F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0752B46924F0FAF300E9D2F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0752B46B24F0FAF300E9D2F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0752B47F24F12A0200E9D2F6 /* SocketAddress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketAddress.h; sourceTree = "<group>"; };
-		0752B48024F12A0200E9D2F6 /* HTTPRequester.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPRequester.m; sourceTree = "<group>"; };
-		0752B48124F12A0200E9D2F6 /* sslfuncs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sslfuncs.h; sourceTree = "<group>"; };
-		0752B48224F12A0200E9D2F6 /* HTTPRequester.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPRequester.h; sourceTree = "<group>"; };
-		0752B48324F12A0200E9D2F6 /* SocketAddress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketAddress.m; sourceTree = "<group>"; };
-		0752B48424F12A0200E9D2F6 /* sslfuncs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sslfuncs.c; sourceTree = "<group>"; };
-		0752B48924F12C1500E9D2F6 /* Sample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sample-Bridging-Header.h"; sourceTree = "<group>"; };
 		0752B48A24F1648D00E9D2F6 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,10 +60,8 @@
 		0752B45C24F0FAF200E9D2F6 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
-				0752B47E24F12A0200E9D2F6 /* NetworkingLogic */,
 				0752B45D24F0FAF200E9D2F6 /* AppDelegate.swift */,
 				0752B45F24F0FAF200E9D2F6 /* SceneDelegate.swift */,
-				0752B48924F12C1500E9D2F6 /* Sample-Bridging-Header.h */,
 				0752B46124F0FAF200E9D2F6 /* ViewController.swift */,
 				0706565C24F2CCA0007BDA95 /* RedirectManager.swift */,
 				0752B48A24F1648D00E9D2F6 /* APIManager.swift */,
@@ -83,19 +71,6 @@
 				0752B46B24F0FAF300E9D2F6 /* Info.plist */,
 			);
 			path = Sample;
-			sourceTree = "<group>";
-		};
-		0752B47E24F12A0200E9D2F6 /* NetworkingLogic */ = {
-			isa = PBXGroup;
-			children = (
-				0752B47F24F12A0200E9D2F6 /* SocketAddress.h */,
-				0752B48024F12A0200E9D2F6 /* HTTPRequester.m */,
-				0752B48124F12A0200E9D2F6 /* sslfuncs.h */,
-				0752B48224F12A0200E9D2F6 /* HTTPRequester.h */,
-				0752B48324F12A0200E9D2F6 /* SocketAddress.m */,
-				0752B48424F12A0200E9D2F6 /* sslfuncs.c */,
-			);
-			path = NetworkingLogic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,10 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0752B46224F0FAF200E9D2F6 /* ViewController.swift in Sources */,
-				0752B48624F12A0200E9D2F6 /* SocketAddress.m in Sources */,
 				0752B45E24F0FAF200E9D2F6 /* AppDelegate.swift in Sources */,
-				0752B48524F12A0200E9D2F6 /* HTTPRequester.m in Sources */,
-				0752B48724F12A0200E9D2F6 /* sslfuncs.c in Sources */,
 				0706565D24F2CCA0007BDA95 /* RedirectManager.swift in Sources */,
 				0752B46024F0FAF200E9D2F6 /* SceneDelegate.swift in Sources */,
 				0752B48B24F1648D00E9D2F6 /* APIManager.swift in Sources */,
@@ -328,10 +300,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://0dfab43f8501.ngrok.io";
+				MY_APP_SERVER_URL = "https://cb0c877e82aa.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = info.nadalin.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/eric/Dev/Sample/Sample/Sample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -349,10 +321,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://0dfab43f8501.ngrok.io";
+				MY_APP_SERVER_URL = "https://cb0c877e82aa.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = info.nadalin.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/eric/Dev/Sample/Sample/Sample-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
