@@ -103,9 +103,9 @@ var connection: NWConnection?
             if let range = response.range(of: #"Location: (.*)\r\n"#,
             options: .regularExpression) {
                 let location = response[range];
-                print(location)
+                //print(location)
                 let redirect = location[location.index(location.startIndex, offsetBy: 10)..<location.index(location.endIndex, offsetBy: -1)]
-                print(redirect)
+                //print(redirect)
                 return String(redirect)
             }
         }
@@ -113,7 +113,7 @@ var connection: NWConnection?
     }
 
     func doRedirect(link: String) {
-        print("doRedirect "+link)
+        print("opening \(link)")
         let url = URL(string: link)!
         self.startConnection(url: url)
         var str = String(format: "GET %@", url.path)
@@ -125,7 +125,7 @@ var connection: NWConnection?
         if (url.scheme!.starts(with:"https")) {
               port = 443
         }
-        str = str + String(format:":%x", port)
+        str = str + String(format:":%d", port)
         str = str + " \r\nConnection: close\r\n\r\n"
         print("sending data:\n\(str)")
         let data: Data? = str.data(using: .utf8)
