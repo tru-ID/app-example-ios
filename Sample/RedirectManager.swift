@@ -17,9 +17,9 @@ import Network
 //
 class RedirectManager {
     
-var connection: NWConnection?
+    var connection: NWConnection?
 
-    func startConnection(url: URL) {
+    private func startConnection(url: URL) {
         let pathMonitor = NWPathMonitor()
         pathMonitor.pathUpdateHandler = { path in
             if path.usesInterfaceType(.wifi) {
@@ -38,8 +38,6 @@ var connection: NWConnection?
         
         let tcpOptions = NWProtocolTCP.Options()
         var tlsOptions: NWProtocolTLS.Options?
-
-
         var port = 80
         if (url.scheme!.starts(with:"https")) {
             port = 443
@@ -51,15 +49,12 @@ var connection: NWConnection?
         params.requiredInterfaceType = .cellular
         params.prohibitExpensivePaths = false
         params.prohibitedInterfaceTypes = [.wifi]
-       
+        // create network connection
         connection = NWConnection(host: NWEndpoint.Host(url.host!), port: NWEndpoint.Port(rawValue: UInt16(port))!, using: params)
         connection?.stateUpdateHandler = { (newState) in
-            print("This is stateUpdateHandler:")
             switch (newState) {
                 case .ready:
-                    print("State: Ready\n")
-                    print(self.connection.debugDescription)
-                    print("------")
+                    print("State: Ready \(self.connection.debugDescription)\n")
                 case .setup:
                     print("State: Setup\n")
                 case .cancelled:
@@ -70,20 +65,15 @@ var connection: NWConnection?
                     print("ERROR! State not defined!\n")
             }
         }
-        
         connection?.start(queue: .main)
-        print("connection start")
-        print(connection.debugDescription)
     }
 
-    func sendAndReceive(data: Data, completion: @escaping (String?) -> ()) {
-        self.connection!.send(content: data, completion: NWConnection.SendCompletion.contentProcessed(({ (error) in
+    private func sendAndReceive(data: Data, completion: @escaping (String?) -> ()) {
+        self.connection!.send(content: data, completion: NWConnection.SendCompletion.contentProcessed({ (error) in
             if let err = error {
                 print("Sending error \(err)")
-            } else {
-                print("Sent successfully")
-            }
-        })))
+            } 
+        }))
         self.connection!.receiveMessage { data, context, isComplete, error in
               print("Receive isComplete: " + isComplete.description)
               guard let d = data else {
@@ -98,14 +88,12 @@ var connection: NWConnection?
     
     private func parseRedirect(response: String) -> String? {
         let status = response[response.index(response.startIndex, offsetBy: 9)..<response.index(response.startIndex, offsetBy: 12)]
-        print("status: \(status)")
+        print("\n----\nparseRedirect status: \(status)")
         if (status == "302") {
             if let range = response.range(of: #"Location: (.*)\r\n"#,
             options: .regularExpression) {
                 let location = response[range];
-                //print(location)
                 let redirect = location[location.index(location.startIndex, offsetBy: 10)..<location.index(location.endIndex, offsetBy: -1)]
-                //print(redirect)
                 return String(redirect)
             }
         }
@@ -115,21 +103,18 @@ var connection: NWConnection?
     func doRedirect(link: String) {
         print("opening \(link)")
         let url = URL(string: link)!
-        self.startConnection(url: url)
+        startConnection(url: url)
         var str = String(format: "GET %@", url.path)
         if (url.query != nil) {
             str = str + String(format:"?%@", url.query!)
         }
         str = str + String(format:" HTTP/1.1\r\nHost: %@", url.host!)
-        var port = 80
-        if (url.scheme!.starts(with:"https")) {
-              port = 443
-        }
+        let port = url.scheme!.starts(with:"https") ? 443 : 80
         str = str + String(format:":%d", port)
         str = str + " \r\nConnection: close\r\n\r\n"
         print("sending data:\n\(str)")
         let data: Data? = str.data(using: .utf8)
-        self.sendAndReceive(data: data!) { (result) -> () in
+        sendAndReceive(data: data!) { (result) -> () in
             if let r = result {
                 print("redirect found: \(r)")
                 self.doRedirect(link: r)

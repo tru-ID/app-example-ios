@@ -26,42 +26,42 @@ class ViewController: UIViewController {
     }
     
     @IBAction func enterField(_ sender: UITextField) {
-        print("enter "+sender.text!)
-    
-        self.label.text =  ""
-        self.result.text =  ""
-        self.activityIndicator.startAnimating()
-        let startTime = NSDate().timeIntervalSince1970 * 1000
+        if let phoneNumber = sender.text {
+            print("phoneNumber \(phoneNumber)")
+            self.label.text =  ""
+            self.result.text =  ""
+            self.activityIndicator.startAnimating()
+            let startTime = NSDate().timeIntervalSince1970 * 1000
 
-
-        // Step 1: Send phone number to Server
-        APIManager().postCheck(withPhoneNumber: sender.text!) { (c) in
-             DispatchQueue.main.async {
-                self.check = c
-                self.label.text =  c.url
-                let currentTime = NSDate().timeIntervalSince1970 * 1000
-                print("time: \(currentTime-startTime)")
-                print("server check \(c)")
-                // Step 2: Open check_url over cellular
-                self.doRedirect(url: self.check!.url) { _ in ()
-                    DispatchQueue.main.asyncAfter(deadline:.now() + 3) {
-                        print("-------------- asyncAfter-------------------")
-                        // Step 3: Get Result from Server
-                        APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
-                            print("-------------- redirect result-------------------")
-                                    DispatchQueue.main.async {
-                                        self.checkStatus = s
-                                        let currentTime = NSDate().timeIntervalSince1970 * 1000
-                                        print("time: \(currentTime-startTime)")
-                                        print("server result \(s)")
-                                        self.label.text =  ""
-                                        self.result.text =  s.match.description
-                                        self.activityIndicator.stopAnimating()
-                                    }
-                                }
+            // Step 1: Send phone number to Server
+            APIManager().postCheck(withPhoneNumber: phoneNumber) { (c) in
+                 DispatchQueue.main.async {
+                    self.check = c
+                    self.label.text =  c.url
+                    let currentTime = NSDate().timeIntervalSince1970 * 1000
+                    print("time: \(currentTime-startTime)")
+                    print("server check \(c)")
+                    // Step 2: Open check_url over cellular
+                    self.doRedirect(url: self.check!.url) { _ in ()
+                        DispatchQueue.main.asyncAfter(deadline:.now() + 3) {
+                            print("-------------- asyncAfter-------------------")
+                            // Step 3: Get Result from Server
+                            APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
+                                print("-------------- redirect result-------------------")
+                                        DispatchQueue.main.async {
+                                            self.checkStatus = s
+                                            let currentTime = NSDate().timeIntervalSince1970 * 1000
+                                            print("time: \(currentTime-startTime)")
+                                            print("server result \(s)")
+                                            self.label.text =  ""
+                                            self.result.text =  s.match.description
+                                            self.activityIndicator.stopAnimating()
+                                        }
+                            }
                         }
                     }
                 }
+            }
         }
     }
     
