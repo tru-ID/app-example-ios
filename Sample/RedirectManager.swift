@@ -69,12 +69,12 @@ class RedirectManager {
     }
 
     private func sendAndReceive(data: Data, completion: @escaping (String?) -> ()) {
-        self.connection!.send(content: data, completion: NWConnection.SendCompletion.contentProcessed({ (error) in
+        connection?.send(content: data, completion: NWConnection.SendCompletion.contentProcessed({ (error) in
             if let err = error {
                 print("Sending error \(err)")
             } 
         }))
-        self.connection!.receiveMessage { data, context, isComplete, error in
+        connection?.receiveMessage { data, context, isComplete, error in
               print("Receive isComplete: " + isComplete.description)
               guard let d = data else {
                   print("Error: Received nil Data")

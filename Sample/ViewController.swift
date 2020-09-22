@@ -10,26 +10,28 @@ import UIKit
 import Network
 
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     private var check: APIManager.Check?
     private var checkStatus: APIManager.CheckStatus?
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var result: UILabel!
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var checkmark: UIImageView!
+    @IBOutlet weak var xmark: UIImageView!
+    @IBOutlet weak var phoneField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func enterField(_ sender: UITextField) {
+        // hide keyboard
+        phoneField.resignFirstResponder()
         if let phoneNumber = sender.text {
             print("phoneNumber \(phoneNumber)")
-            self.label.text =  ""
-            self.result.text =  ""
+            self.checkmark.isHidden = true
+            self.xmark.isHidden = true
             self.activityIndicator.startAnimating()
             let startTime = NSDate().timeIntervalSince1970 * 1000
 
@@ -37,7 +39,7 @@ class ViewController: UIViewController {
             APIManager().postCheck(withPhoneNumber: phoneNumber) { (c) in
                  DispatchQueue.main.async {
                     self.check = c
-                    self.label.text =  c.url
+                    //self.label.text =  c.url
                     let currentTime = NSDate().timeIntervalSince1970 * 1000
                     print("time: \(currentTime-startTime)")
                     print("server check \(c)")
@@ -53,9 +55,12 @@ class ViewController: UIViewController {
                                             let currentTime = NSDate().timeIntervalSince1970 * 1000
                                             print("time: \(currentTime-startTime)")
                                             print("server result \(s)")
-                                            self.label.text =  ""
-                                            self.result.text =  s.match.description
                                             self.activityIndicator.stopAnimating()
+                                            if (s.match) {
+                                                self.checkmark.isHidden = false
+                                            } else {
+                                                self.xmark.isHidden = false
+                                            }
                                         }
                             }
                         }

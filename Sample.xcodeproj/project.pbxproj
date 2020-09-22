@@ -300,7 +300,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://fe7decc1cce1.ngrok.io";
+				MY_APP_SERVER_URL = "https://18c96711339f.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = info.nadalin.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -321,7 +321,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://fe7decc1cce1.ngrok.io";
+				MY_APP_SERVER_URL = "https://18c96711339f.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = info.nadalin.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
