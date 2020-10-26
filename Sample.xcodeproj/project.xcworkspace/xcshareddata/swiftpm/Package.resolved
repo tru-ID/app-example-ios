@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Trusdk",
+        "repositoryURL": "https://gitlab.com/tru-id/tru-sdk-ios.git",
+        "state": {
+          "branch": "master",
+          "revision": "35642e5d5d7a4a0b4cf3cf6b7d98472158744a61",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
