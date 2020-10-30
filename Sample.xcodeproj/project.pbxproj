@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		0752B46724F0FAF300E9D2F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0752B46624F0FAF300E9D2F6 /* Assets.xcassets */; };
 		0752B46A24F0FAF300E9D2F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0752B46824F0FAF300E9D2F6 /* LaunchScreen.storyboard */; };
 		0752B48B24F1648D00E9D2F6 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752B48A24F1648D00E9D2F6 /* APIManager.swift */; };
+		1458EC43254733AC00303B8C /* Trusdk in Frameworks */ = {isa = PBXBuildFile; productRef = 1458EC42254733AC00303B8C /* Trusdk */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1458EC43254733AC00303B8C /* Trusdk in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +48,7 @@
 			children = (
 				0752B45C24F0FAF200E9D2F6 /* Sample */,
 				0752B45B24F0FAF200E9D2F6 /* Products */,
+				1458EC3C2546E2C100303B8C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +76,13 @@
 			path = Sample;
 			sourceTree = "<group>";
 		};
+		1458EC3C2546E2C100303B8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -89,6 +99,9 @@
 			dependencies = (
 			);
 			name = Sample;
+			packageProductDependencies = (
+				1458EC42254733AC00303B8C /* Trusdk */,
+			);
 			productName = Sample;
 			productReference = 0752B45A24F0FAF200E9D2F6 /* Sample.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +130,9 @@
 				Base,
 			);
 			mainGroup = 0752B45124F0FAF200E9D2F6;
+			packageReferences = (
+				1458EC41254733AC00303B8C /* XCRemoteSwiftPackageReference "tru-sdk-ios" */,
+			);
 			productRefGroup = 0752B45B24F0FAF200E9D2F6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -352,6 +368,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1458EC41254733AC00303B8C /* XCRemoteSwiftPackageReference "tru-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://gitlab.com/tru-id/tru-sdk-ios.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1458EC42254733AC00303B8C /* Trusdk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1458EC41254733AC00303B8C /* XCRemoteSwiftPackageReference "tru-sdk-ios" */;
+			productName = Trusdk;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0752B45224F0FAF200E9D2F6 /* Project object */;
 }

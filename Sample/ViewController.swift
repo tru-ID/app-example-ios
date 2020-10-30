@@ -8,6 +8,7 @@
 
 import UIKit
 import Network
+import Trusdk
 
 
 class ViewController: UIViewController, UITextFieldDelegate {
@@ -71,8 +72,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func doRedirect(url: String , completion: (Bool) -> ()) {
-        let rm: RedirectManager  = RedirectManager()
-        rm.doRedirect(link: url)
+        let truSdk: TruSdk = TruSdk()
+        truSdk.openCheckUrl(url: url, completion: completion)
         return completion(true)
     }
     
