@@ -14,8 +14,14 @@ import Foundation
 final class APIManager {
         
     private let serverUrl = Bundle.main.object(forInfoDictionaryKey: "appServerUrl") as! String
+    private let rtaKey = Bundle.main.object(forInfoDictionaryKey: "rtaKey") as! String
+
+    enum CheckError: Error {
+        case badRequest
+        case internalError
+    }
     
-    func postCheck(withPhoneNumber phone:String, completionHandler: @escaping (Check) -> Void) {
+    func postCheck(withPhoneNumber phone:String, completionHandler: @escaping (Result<Check,CheckError>) -> Void) {
         // creating paylod
         let json: [String: Any] = ["phone_number": phone]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -36,6 +42,7 @@ final class APIManager {
         request.httpMethod = "POST"
         request.httpBody = jsonData
         request.setValue("application/json", forHTTPHeaderField: "content-type")
+        request.setValue(rtaKey, forHTTPHeaderField: "x-rta")
         print("request " + request.description)
         // send the request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -44,14 +51,21 @@ final class APIManager {
               return
             }
             
-            guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
-              print("Unexpected response status code: \(response)")
-              return
+            if let httpResponse = response as? HTTPURLResponse {
+              print("response status code: \(httpResponse.statusCode)")
+                if (!(200...299).contains(httpResponse.statusCode)) {
+                    if (httpResponse.statusCode == 400) {
+                        completionHandler(.failure(.badRequest))
+                    }
+                    if (httpResponse.statusCode >= 500) {
+                        completionHandler(.failure(.internalError))
+                    }
+                    return
+                }
             }
             if let data = data,
                 let check = try? JSONDecoder().decode(Check.self, from: data) {
-                completionHandler(check)
+                completionHandler(.success(check))
             }
         }
         task.resume()
@@ -69,7 +83,11 @@ final class APIManager {
 
         if let url = URL(string: endPoint) {
               print(url)
-              let task = session.dataTask(with: url) { (data, response, error) in
+              // create Request
+              var request = URLRequest(url: url)
+              request.httpMethod = "GET"
+              request.setValue(rtaKey, forHTTPHeaderField: "x-rta")
+              let task = session.dataTask(with: request) { (data, response, error) in
                 if let error = error {
                   print("Error returning id \(id): \(error)")
                   return

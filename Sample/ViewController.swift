@@ -8,73 +8,98 @@
 
 import UIKit
 import Network
-import Trusdk
+import TruSDK
 
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
     private var check: APIManager.Check?
     private var checkStatus: APIManager.CheckStatus?
+    private var truSdk: TruSDK = TruSDK()
 
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var checkmark: UIImageView!
-    @IBOutlet weak var xmark: UIImageView!
-    @IBOutlet weak var phoneField: UITextField!
+    @IBOutlet var phoneField: UITextField!
+    @IBOutlet var result: UILabel!
+    @IBOutlet var console: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
+    }
+    
+    @IBAction func phoneCheck(_ sender: Any) {
+        // hide keyboard
+        phoneField.resignFirstResponder()
+        if let phone = phoneField.text {
+            doPhoneCheck(phoneNumber: phone)
+        }
     }
     
     @IBAction func enterField(_ sender: UITextField) {
         // hide keyboard
         phoneField.resignFirstResponder()
-        if let phoneNumber = sender.text {
-            print("phoneNumber \(phoneNumber)")
-            self.checkmark.isHidden = true
-            self.xmark.isHidden = true
-            self.activityIndicator.startAnimating()
-            let startTime = NSDate().timeIntervalSince1970 * 1000
+        if let phone = sender.text {
+            doPhoneCheck(phoneNumber: phone)
+        }
+    }
+    
+    func doPhoneCheck(phoneNumber: String) {
+        print("phoneNumber \(phoneNumber)")
+        self.result.text =  ""
+        self.console.text =  ""
+        self.activityIndicator.startAnimating()
+        self.checkStatus = nil
+        let startTime = NSDate().timeIntervalSince1970 * 1000
 
-            // Step 1: Send phone number to Server
-            APIManager().postCheck(withPhoneNumber: phoneNumber) { (c) in
-                 DispatchQueue.main.async {
-                    self.check = c
-                    //self.label.text =  c.url
-                    let currentTime = NSDate().timeIntervalSince1970 * 1000
-                    print("time: \(currentTime-startTime)")
-                    print("server check \(c)")
+        // Step 1: Send phone number to Server
+        self.console.text =  "[\u{2714}] - Validating Phone Number Input"
+        APIManager().postCheck(withPhoneNumber: phoneNumber) { (result) in
+            switch result {
+              case .success(let c):
+                     self.check = c
+                     DispatchQueue.main.async { // updating UI
+                        let currentTime = NSDate().timeIntervalSince1970 * 1000
+                        print("time: \(currentTime-startTime)")
+                        print("server check \(c)")
+                        self.console.text = self.console.text! + "\n\n[\u{2714}] - Initiating Phone Verification"
+                        self.console.text = self.console.text! + "\n\n[\u{2714}] - Creating Mobile Data Session"
+                     }
                     // Step 2: Open check_url over cellular
-                    self.doRedirect(url: self.check!.url) { _ in ()
-                        DispatchQueue.main.asyncAfter(deadline:.now() + 3) {
-                            print("-------------- asyncAfter-------------------")
-                            // Step 3: Get Result from Server
-                            APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
-                                print("-------------- redirect result-------------------")
-                                        DispatchQueue.main.async {
-                                            self.checkStatus = s
-                                            let currentTime = NSDate().timeIntervalSince1970 * 1000
-                                            print("time: \(currentTime-startTime)")
-                                            print("server result \(s)")
-                                            self.activityIndicator.stopAnimating()
-                                            if (s.match) {
-                                                self.checkmark.isHidden = false
-                                            } else {
-                                                self.xmark.isHidden = false
-                                            }
-                                        }
+                    self.truSdk.openCheckUrl(url: self.check!.url) {
+                        let currentTime = NSDate().timeIntervalSince1970 * 1000
+                        print("-------------- redirect ------->  \(currentTime-startTime)")
+                        // Step 3: Get Result from Server
+                        APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
+                            print("-------------- get result-------------------")
+                            DispatchQueue.main.async { // updating UI
+                                self.checkStatus = s
+                                let currentTime = NSDate().timeIntervalSince1970 * 1000
+                                print("time: \(currentTime-startTime)")
+                                print("server result \(s)")
+                                self.activityIndicator.stopAnimating()
+                                self.console.text = self.console.text! + "\n\n[\u{2714}] - Phone Number match: \(s.match)"
+                                if (s.match) {
+                                    self.result.text =  "\u{2705}"
+                                } else {
+                                    self.result.text =  "\u{274C}"
+                                }
                             }
                         }
+                    }
+            case .failure(let status):
+                DispatchQueue.main.sync { // updating UI
+                    self.activityIndicator.stopAnimating()
+                    self.console.text =  ""
+                    if (status == APIManager.CheckError.badRequest) {
+                        self.result.text =  "\u{274C} wrong format"
+                    } else {
+                        self.result.text =  "\u{274C} error"
                     }
                 }
             }
         }
-    }
-    
-    func doRedirect(url: String , completion: (Bool) -> ()) {
-        let truSdk: TruSdk = TruSdk()
-        truSdk.openCheckUrl(url: url, completion: completion)
-        return completion(true)
     }
     
 }
