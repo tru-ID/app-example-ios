@@ -2,11 +2,11 @@
   "object": {
     "pins": [
       {
-        "package": "Trusdk",
+        "package": "TruSDK",
         "repositoryURL": "https://gitlab.com/tru-id/tru-sdk-ios.git",
         "state": {
-          "branch": "redirect",
-          "revision": "618613d59b7a6bbfca5e9119b67ad5049175b4b8",
+          "branch": "0.0.3",
+          "revision": "1978dc280b5c775b0f2f3409f2ebf844c89d24ce",
           "version": null
         }
       }

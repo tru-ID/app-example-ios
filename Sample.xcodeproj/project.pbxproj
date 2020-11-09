@@ -376,7 +376,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://gitlab.com/tru-id/tru-sdk-ios.git";
 			requirement = {
-				branch = redirect;
+				branch = 0.0.3;
 				kind = branch;
 			};
 		};

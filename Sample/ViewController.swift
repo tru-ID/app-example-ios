@@ -8,14 +8,14 @@
 
 import UIKit
 import Network
-import Trusdk
+import TruSDK
 
 
 class ViewController: UIViewController, UITextFieldDelegate {
     
     private var check: APIManager.Check?
     private var checkStatus: APIManager.CheckStatus?
-    private var truSdk: TruSdk = TruSdk()
+    private var truSdk: TruSDK = TruSDK()
 
 
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
