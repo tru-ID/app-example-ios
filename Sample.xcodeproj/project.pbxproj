@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0706565D24F2CCA0007BDA95 /* RedirectManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706565C24F2CCA0007BDA95 /* RedirectManager.swift */; };
 		0752B45E24F0FAF200E9D2F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752B45D24F0FAF200E9D2F6 /* AppDelegate.swift */; };
 		0752B46024F0FAF200E9D2F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752B45F24F0FAF200E9D2F6 /* SceneDelegate.swift */; };
 		0752B46224F0FAF200E9D2F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752B46124F0FAF200E9D2F6 /* ViewController.swift */; };
@@ -19,7 +18,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0706565C24F2CCA0007BDA95 /* RedirectManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedirectManager.swift; sourceTree = "<group>"; };
 		0752B45A24F0FAF200E9D2F6 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0752B45D24F0FAF200E9D2F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0752B45F24F0FAF200E9D2F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 				0752B45D24F0FAF200E9D2F6 /* AppDelegate.swift */,
 				0752B45F24F0FAF200E9D2F6 /* SceneDelegate.swift */,
 				0752B46124F0FAF200E9D2F6 /* ViewController.swift */,
-				0706565C24F2CCA0007BDA95 /* RedirectManager.swift */,
 				0752B48A24F1648D00E9D2F6 /* APIManager.swift */,
 				0752B46324F0FAF200E9D2F6 /* Main.storyboard */,
 				0752B46624F0FAF300E9D2F6 /* Assets.xcassets */,
@@ -162,7 +159,6 @@
 			files = (
 				0752B46224F0FAF200E9D2F6 /* ViewController.swift in Sources */,
 				0752B45E24F0FAF200E9D2F6 /* AppDelegate.swift in Sources */,
-				0706565D24F2CCA0007BDA95 /* RedirectManager.swift in Sources */,
 				0752B46024F0FAF200E9D2F6 /* SceneDelegate.swift in Sources */,
 				0752B48B24F1648D00E9D2F6 /* APIManager.swift in Sources */,
 			);
@@ -310,7 +306,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 3S7VD93M94;
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
@@ -318,7 +314,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io/rta/0";
+				MY_APP_RTA_KEY = change_me;
+				MY_APP_SERVER_URL = "https://rta.tru.id/rta/0/app";
 				PRODUCT_BUNDLE_IDENTIFIER = id.tru.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -333,7 +330,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = 3S7VD93M94;
 				INFOPLIST_FILE = Sample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
@@ -341,7 +338,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io/rta/0";
+				MY_APP_RTA_KEY = change_me;
+				MY_APP_SERVER_URL = "https://rta.tru.id/rta/0/app";
 				PRODUCT_BUNDLE_IDENTIFIER = id.tru.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -378,7 +376,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://gitlab.com/tru-id/tru-sdk-ios.git";
 			requirement = {
-				branch = master;
+				branch = redirect;
 				kind = branch;
 			};
 		};

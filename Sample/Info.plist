@@ -62,5 +62,7 @@
 	</array>
 	<key>appServerUrl</key>
 	<string>${MY_APP_SERVER_URL}</string>
+	<key>rtaKey</key>
+	<string>${MY_APP_RTA_KEY}</string>
 </dict>
 </plist>

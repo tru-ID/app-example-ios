@@ -5,8 +5,8 @@
         "package": "Trusdk",
         "repositoryURL": "https://gitlab.com/tru-id/tru-sdk-ios.git",
         "state": {
-          "branch": "master",
-          "revision": "35642e5d5d7a4a0b4cf3cf6b7d98472158744a61",
+          "branch": "redirect",
+          "revision": "618613d59b7a6bbfca5e9119b67ad5049175b4b8",
           "version": null
         }
       }
