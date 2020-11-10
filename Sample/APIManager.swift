@@ -14,7 +14,6 @@ import Foundation
 final class APIManager {
         
     private let serverUrl = Bundle.main.object(forInfoDictionaryKey: "appServerUrl") as! String
-    private let rtaKey = Bundle.main.object(forInfoDictionaryKey: "rtaKey") as! String
 
     enum CheckError: Error {
         case badRequest
@@ -42,7 +41,6 @@ final class APIManager {
         request.httpMethod = "POST"
         request.httpBody = jsonData
         request.setValue("application/json", forHTTPHeaderField: "content-type")
-        request.setValue(rtaKey, forHTTPHeaderField: "x-rta")
         print("request " + request.description)
         // send the request
         let task = session.dataTask(with: request) { (data, response, error) in
@@ -86,7 +84,6 @@ final class APIManager {
               // create Request
               var request = URLRequest(url: url)
               request.httpMethod = "GET"
-              request.setValue(rtaKey, forHTTPHeaderField: "x-rta")
               let task = session.dataTask(with: request) { (data, response, error) in
                 if let error = error {
                   print("Error returning id \(id): \(error)")
