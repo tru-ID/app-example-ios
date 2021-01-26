@@ -46,6 +46,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func doPhoneCheck(phoneNumber: String) {
+        // Auto-completed phone numbers come with spaces so strip them out
+        let phoneNumber = phoneNumber.replacingOccurrences(of: "\\s*", with: "", options: [.regularExpression])
         print("phoneNumber \(phoneNumber)")
         self.result.text =  ""
         self.console.text =  ""
