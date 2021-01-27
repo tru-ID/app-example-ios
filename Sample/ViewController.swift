@@ -46,12 +46,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func doPhoneCheck(phoneNumber: String) {
+        // Auto-completed phone numbers come with spaces so strip them out
+        let phoneNumber = phoneNumber.replacingOccurrences(of: "\\s*", with: "", options: [.regularExpression])
         print("phoneNumber \(phoneNumber)")
         self.result.text =  ""
         self.console.text =  ""
         self.activityIndicator.startAnimating()
         self.checkStatus = nil
-        let startTime = NSDate().timeIntervalSince1970 * 1000
+        let start = CFAbsoluteTimeGetCurrent()
 
         // Step 1: Send phone number to Server
         self.console.text =  "[\u{2714}] - Validating Phone Number Input"
@@ -60,24 +62,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
               case .success(let c):
                      self.check = c
                      DispatchQueue.main.async { // updating UI
-                        let currentTime = NSDate().timeIntervalSince1970 * 1000
-                        print("time: \(currentTime-startTime)")
-                        print("server check \(c)")
+                        let diff = CFAbsoluteTimeGetCurrent() - start
+                        NSLog("server check \(c) \(diff)")
                         self.console.text = self.console.text! + "\n\n[\u{2714}] - Initiating Phone Verification"
                         self.console.text = self.console.text! + "\n\n[\u{2714}] - Creating Mobile Data Session"
                      }
                     // Step 2: Open check_url over cellular
-                    self.truSdk.openCheckUrl(url: self.check!.url) {
-                        let currentTime = NSDate().timeIntervalSince1970 * 1000
-                        print("-------------- redirect ------->  \(currentTime-startTime)")
+                    self.truSdk.openCheckUrl(url: self.check!.url) { _ in
+                        let diff = CFAbsoluteTimeGetCurrent() - start
+                        NSLog("-------------- redirect ------->  \(diff)")
                         // Step 3: Get Result from Server
                         APIManager().getCheckStatus(withCheckId: self.check!.id) { (s) in
-                            print("-------------- get result-------------------")
+                            NSLog("-------------- get result-------------------")
                             DispatchQueue.main.async { // updating UI
                                 self.checkStatus = s
-                                let currentTime = NSDate().timeIntervalSince1970 * 1000
-                                print("time: \(currentTime-startTime)")
-                                print("server result \(s)")
+                                let diff = CFAbsoluteTimeGetCurrent() - start
+                                NSLog("server result \(s) \(diff)")
                                 self.activityIndicator.stopAnimating()
                                 self.console.text = self.console.text! + "\n\n[\u{2714}] - Phone Number match: \(s.match)"
                                 if (s.match) {

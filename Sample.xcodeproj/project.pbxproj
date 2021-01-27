@@ -14,7 +14,7 @@
 		0752B46724F0FAF300E9D2F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0752B46624F0FAF300E9D2F6 /* Assets.xcassets */; };
 		0752B46A24F0FAF300E9D2F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0752B46824F0FAF300E9D2F6 /* LaunchScreen.storyboard */; };
 		0752B48B24F1648D00E9D2F6 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0752B48A24F1648D00E9D2F6 /* APIManager.swift */; };
-		1458EC43254733AC00303B8C /* Trusdk in Frameworks */ = {isa = PBXBuildFile; productRef = 1458EC42254733AC00303B8C /* Trusdk */; };
+		07A7347D25BED50700095E92 /* TruSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 07A7347C25BED50700095E92 /* TruSDK */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1458EC43254733AC00303B8C /* Trusdk in Frameworks */,
+				07A7347D25BED50700095E92 /* TruSDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			);
 			name = Sample;
 			packageProductDependencies = (
-				1458EC42254733AC00303B8C /* Trusdk */,
+				07A7347C25BED50700095E92 /* TruSDK */,
 			);
 			productName = Sample;
 			productReference = 0752B45A24F0FAF200E9D2F6 /* Sample.app */;
@@ -375,17 +375,17 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://gitlab.com/tru-id/tru-sdk-ios.git";
 			requirement = {
-				branch = 0.0.3;
-				kind = branch;
+				kind = exactVersion;
+				version = 0.0.10;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1458EC42254733AC00303B8C /* Trusdk */ = {
+		07A7347C25BED50700095E92 /* TruSDK */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1458EC41254733AC00303B8C /* XCRemoteSwiftPackageReference "tru-sdk-ios" */;
-			productName = Trusdk;
+			productName = TruSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
