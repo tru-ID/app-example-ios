@@ -314,7 +314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io/rta/0/app";
+				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = id.tru.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -337,7 +337,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io/rta/0/app";
+				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = id.tru.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
