@@ -84,11 +84,17 @@ https://tru.id/terms</string>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iXc-13-Cqv">
                                 <rect key="frame" x="66.666666666666686" y="319" width="257" height="42"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="M8d-J5-rUw"/>
                                     <constraint firstAttribute="width" constant="257" id="SdI-Oe-lJ6"/>
                                 </constraints>
-                                <state key="normal" title="Verify my phone number"/>
+                                <state key="normal" title="Verify my phone number">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <state key="disabled" title="Verify my phone number">
+                                    <color key="titleColor" systemColor="systemGray2Color"/>
+                                </state>
                                 <connections>
                                     <action selector="phoneCheck:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7qp-cS-5jr"/>
                                 </connections>
@@ -158,6 +164,9 @@ https://tru.id/terms</string>
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
