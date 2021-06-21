@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     private var checkStatus: APIManager.CheckStatus?
     private var truSdk: TruSDK = TruSDK()
 
+    var phoneNumberTest = NSPredicate(format: "SELF MATCHES %@", "^[0-9+]{0,1}+[0-9]{5,16}$")
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var phoneField: UITextField!
     @IBOutlet weak var result: UILabel!
@@ -28,14 +30,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-//        let attributedString = NSMutableAttributedString(string: "tru.ID terms & conditions")
-//        attributedString.addAttribute(.link, value: "https://tru.id/terms", range: NSRange(location: 0, length: 25))
-
     }
 
-    func checkBox() {
-        //checkmark.square
-    }
     @IBAction func termAndConditionsAcceptChanged(_ sender: Any) {
         if let _ = sender as? UISwitch {
             if let phoneNumber = phoneField.text {
@@ -115,9 +111,7 @@ extension ViewController: UITextFieldDelegate {
 
     func validateUI(with phoneNumber: String) {
         if termsConditionsSwitch.isOn &&
-            !phoneNumber.isEmpty &&
-            phoneNumber.count == 13 &&
-            phoneNumber.hasPrefix("+"){
+            !phoneNumber.isEmpty && phoneNumberTest.evaluate(with: phoneNumber) {
             verifyButton.isEnabled = true
         } else {
             verifyButton.isEnabled = false

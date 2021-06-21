@@ -131,8 +131,7 @@ final class APIManager {
         case match
       }
 
-      init(id: String,
-           match: Bool) {
+      init(id: String, match: Bool) {
         self.id = id
         self.match = match
       }
