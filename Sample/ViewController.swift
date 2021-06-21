@@ -33,6 +33,9 @@ class ViewController: UIViewController {
 
     }
 
+    func checkBox() {
+        //checkmark.square
+    }
     @IBAction func termAndConditionsAcceptChanged(_ sender: Any) {
         if let _ = sender as? UISwitch {
             if let phoneNumber = phoneField.text {
@@ -109,7 +112,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UITextFieldDelegate {
-    
+
     func validateUI(with phoneNumber: String) {
         if termsConditionsSwitch.isOn &&
             !phoneNumber.isEmpty &&
