@@ -30,6 +30,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
+        termsConditionsTextView.isSelectable = true
+        termsConditionsTextView.isEditable = false
+        termsConditionsTextView.isUserInteractionEnabled = true
+        let attributedString = NSMutableAttributedString(string: "I agree with tru.ID terms and privacy policy")
+        attributedString.addAttributes([NSAttributedString.Key.link: "https://tru.id/terms"], range: NSRange(location:20, length: 5))
+        attributedString.addAttributes([NSAttributedString.Key.link: "https://tru.id/privacy"], range: NSRange(location:30, length: 7))
+        termsConditionsTextView.attributedText = attributedString
     }
 
     @IBAction func termAndConditionsAcceptChanged(_ sender: Any) {
@@ -107,7 +114,7 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: UITextFieldDelegate {
+extension ViewController: UITextFieldDelegate, UITextViewDelegate {
 
     func validateUI(with phoneNumber: String) {
         if termsConditionsSwitch.isOn &&
