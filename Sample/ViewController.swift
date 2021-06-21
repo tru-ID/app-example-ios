@@ -11,7 +11,7 @@ import Network
 import TruSDK
 
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class ViewController: UIViewController {
     
     private var check: APIManager.Check?
     private var checkStatus: APIManager.CheckStatus?
@@ -28,11 +28,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-        let attributedString = NSMutableAttributedString(string: "tru.ID terms & conditions")
-        attributedString.addAttribute(.link, value: "https://tru.id/terms", range: NSRange(location: 0, length: 25))
-        //attributedString.addAttribute(.paragraphStyle, value: NSTextAlignment.center, range: NSMakeRange(0, attributedString.length))
-
-//        termsConditionsTextView.attributedText = attributedString
+//        let attributedString = NSMutableAttributedString(string: "tru.ID terms & conditions")
+//        attributedString.addAttribute(.link, value: "https://tru.id/terms", range: NSRange(location: 0, length: 25))
 
     }
 
@@ -111,7 +108,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
 }
 
-extension ViewController {
+extension ViewController: UITextFieldDelegate {
+    
     func validateUI(with phoneNumber: String) {
         if termsConditionsSwitch.isOn &&
             !phoneNumber.isEmpty &&
