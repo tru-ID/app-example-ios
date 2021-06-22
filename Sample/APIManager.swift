@@ -52,7 +52,7 @@ final class APIManager {
             if let httpResponse = response as? HTTPURLResponse {
               print("response status code: \(httpResponse.statusCode)")
                 if (!(200...299).contains(httpResponse.statusCode)) {
-                    if (httpResponse.statusCode == 400) {
+                    if ((400...499).contains(httpResponse.statusCode)) {
                         completionHandler(.failure(.badRequest))
                     }
                     if (httpResponse.statusCode >= 500) {
@@ -131,8 +131,7 @@ final class APIManager {
         case match
       }
 
-      init(id: String,
-           match: Bool) {
+      init(id: String, match: Bool) {
         self.id = id
         self.match = match
       }
