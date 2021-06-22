@@ -6,8 +6,8 @@
         "repositoryURL": "https://gitlab.com/tru-id/tru-sdk-ios.git",
         "state": {
           "branch": null,
-          "revision": "a0816c42cbbb240afcc833216546f22cb74d8d2b",
-          "version": "0.2.1"
+          "revision": "d48138b8402cd8728e96bf4f9feb71db214a595d",
+          "version": "0.2.2"
         }
       }
     ]
