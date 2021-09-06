@@ -316,7 +316,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io";
+				MY_APP_SERVER_URL = "https://e60426fda400.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = id.tru.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -339,7 +339,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MY_APP_SERVER_URL = "https://40cfce57f637.ngrok.io";
+				MY_APP_SERVER_URL = "https://e60426fda400.ngrok.io";
 				PRODUCT_BUNDLE_IDENTIFIER = id.tru.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -378,7 +378,7 @@
 			repositoryURL = "https://gitlab.com/tru-id/tru-sdk-ios.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.2.2;
+				version = 0.2.7;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
