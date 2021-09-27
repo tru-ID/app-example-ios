@@ -48,8 +48,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func phoneCheck(_ sender: Any) {
-        // hide keyboard
-        phoneField.resignFirstResponder()
+        self.view.endEditing(true)
         if let phone = phoneField.text {
             doPhoneCheck(phoneNumber: phone)
         }
