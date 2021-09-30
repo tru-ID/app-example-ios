@@ -37,6 +37,14 @@ class ViewController: UIViewController {
         attributedString.addAttributes([NSAttributedString.Key.link: "https://tru.id/terms"], range: NSRange(location:20, length: 5))
         attributedString.addAttributes([NSAttributedString.Key.link: "https://tru.id/privacy"], range: NSRange(location:30, length: 7))
         termsConditionsTextView.attributedText = attributedString
+        print("[isReachable] Starting")
+        self.truSdk.isReachable { result in
+            switch(result) {
+            case .success(let reachability): print("\(reachability)")
+            case .failure(let error): print("\(error)")
+            }
+            print("[isReachable] DONE")
+        }
     }
 
     @IBAction func termAndConditionsAcceptChanged(_ sender: Any) {
@@ -48,7 +56,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func phoneCheck(_ sender: Any) {
-        self.view.endEditing(true)
+        phoneField.resignFirstResponder()
         if let phone = phoneField.text {
             doPhoneCheck(phoneNumber: phone)
         }
@@ -77,17 +85,6 @@ class ViewController: UIViewController {
                     self.console.text = self.console.text! + "\n\n[\u{2714}] - Creating Mobile Data Session"
                 }
                 // Step 2: Open check_url over cellular
-                print("[isReachable] Starting")
-                self.truSdk.isReachable { result in
-                    switch(result) {
-                    case .success(let reachability): print("\(reachability)")
-                    case .failure(let error): print("\(error)")
-                    }
-                    print("[isReachable] DONE")
-                }
-
-                //self.truSdk.openCheckUrl(url: self.check!.url) { _ in
-                //self.truSdk.check(url: URL(string: self.check!.url)!){ _ in
                 self.truSdk.checkWithTrace(url: URL(string: self.check!.url)!) { error, traceInfo in
                     print("Trace Error: \(error)")
                     print("Trace Info: \(traceInfo)")
@@ -145,11 +142,7 @@ extension ViewController: UITextFieldDelegate, UITextViewDelegate {
     }
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.text?.count == 13 {
-            return true
-        } else {
-            return false
-        }
+        return true
     }
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -162,7 +155,6 @@ extension ViewController: UITextFieldDelegate, UITextViewDelegate {
             let testString = field.replacingCharacters(in: range, with: string)
             validateUI(with: testString)
         }
-
         return true
     }
 
