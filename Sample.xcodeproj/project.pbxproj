@@ -377,8 +377,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://gitlab.com/tru-id/tru-sdk-ios.git";
 			requirement = {
-				kind = exactVersion;
-				version = 0.2.8;
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
