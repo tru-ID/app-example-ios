@@ -85,10 +85,7 @@ class ViewController: UIViewController {
                     self.console.text = self.console.text! + "\n\n[\u{2714}] - Creating Mobile Data Session"
                 }
                 // Step 2: Open check_url over cellular
-                self.truSdk.checkWithTrace(url: URL(string: self.check!.url)!) { error, traceInfo in
-                    print("Trace Error: \(error)")
-                    print("Trace Info: \(traceInfo)")
-
+                self.truSdk.checkUrlWithResponseBody(url: URL(string: self.check!.url)!) { error, body in
                     let diff = CFAbsoluteTimeGetCurrent() - start
                     NSLog("-------------- redirect ------->  \(diff)")
                     // Step 3: Get Result from Server
